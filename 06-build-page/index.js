@@ -37,7 +37,7 @@ async function createCSSBundle() {
 
   for (const file of files) {
     if (file.isFile() && extname(file.name) === '.css') {
-      const filePath = join(file.path, file.name);
+      const filePath = join(stylesDirPath, file.name);
       const content = await readFile(filePath, { encoding: 'utf8' });
       contents.push(content);
     }
@@ -56,7 +56,7 @@ async function copyDirectory(srcPath, destPath) {
     const destDirentPath = join(destPath, dirent.name);
 
     if (dirent.isDirectory()) {
-      copyDirectory(srcDirentPath, destDirentPath);
+      await copyDirectory(srcDirentPath, destDirentPath);
     } else if (dirent.isFile()) {
       await copyFile(srcDirentPath, destDirentPath);
     }
@@ -80,7 +80,7 @@ async function buildHTMLPage() {
 
     for (const componentFile of componentFiles) {
       if (componentFile.isFile()) {
-        const componentFilePath = join(componentFile.path, componentFile.name);
+        const componentFilePath = join(componentsDirPath, componentFile.name);
         const componentFileContents = await getFileContents(componentFilePath);
         const template = `{{${componentFile.name.replace(
           extname(componentFile.name),
