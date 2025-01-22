@@ -13,7 +13,7 @@ fs.readdir(dirPath, { withFileTypes: true }, (error, files) => {
     if (file.isFile()) {
       const extName = path.extname(file.name);
       const baseName = path.basename(file.name, extName);
-      const filePath = path.join(file.path, file.name);
+      const filePath = path.join(dirPath, file.name);
 
       fs.stat(filePath, (error, stats) => {
         if (error) {
