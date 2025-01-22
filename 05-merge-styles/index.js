@@ -9,7 +9,7 @@ async function createBundle() {
 
     for (const file of files) {
       if (file.isFile() && path.extname(file.name) === '.css') {
-        const filePath = path.join(file.path, file.name);
+        const filePath = path.join(stylesDirPath, file.name);
         const content = await readFile(filePath, { encoding: 'utf-8' });
         contents.push(content);
       }
